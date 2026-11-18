@@ -1,0 +1,227 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #2b3a55;
+  --color-skywhite: #f1f7fc;
+  --color-sky: #cfe6f7;
+  --color-sky-deep: #7dc3ee;
+  --color-bluebell: #4f7df3;
+  --color-bluebell-deep: #3a63d6;
+  --color-mint: #7fcdb4;
+  --color-mint-deep: #2f8f77;
+  --color-lilac: #b7a6ee;
+  --color-lilac-deep: #6a55c8;
+  --color-sun: #ffd36b;
+  --color-apricot: #f29b62;
+  --color-divider: #d7e3ee;
+}
+
+/* Fonts are self-hosted with @fontsource in layout.js. */
+@theme inline {
+  --font-display:
+    var(--font-fredoka), "Fredoka", "Arial Rounded MT Bold", system-ui,
+    sans-serif;
+  --font-body: var(--font-nunito), "Nunito Sans", system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    background: var(--color-skywhite);
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--color-skywhite);
+    color: var(--color-navy);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--color-sky-deep);
+    color: var(--color-navy);
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-bluebell);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+  }
+}
+
+/* Entrances */
+.pop-in {
+  animation: pop-in 0.8s cubic-bezier(0.3, 1.5, 0.5, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.fade-up {
+  animation: fade-up 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(28px) scale(0.97);
+  transition:
+    opacity 0.7s ease,
+    transform 0.8s cubic-bezier(0.3, 1.4, 0.5, 1);
+  transition-delay: var(--d, 0ms);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+.step-in {
+  animation: fade-up 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+/* Ambient motion */
+.drift {
+  animation: drift var(--dur, 60s) linear infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes drift {
+  from {
+    transform: translateX(-25vw);
+  }
+  to {
+    transform: translateX(125vw);
+  }
+}
+.bob {
+  animation: bob var(--dur, 4s) ease-in-out infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes bob {
+  50% {
+    transform: translateY(-10px) rotate(var(--r, 0deg));
+  }
+}
+.twinkle {
+  animation: twinkle 2.6s ease-in-out infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes twinkle {
+  50% {
+    opacity: 0.25;
+    transform: scale(0.7) rotate(20deg);
+  }
+}
+.blob {
+  animation: blob 14s ease-in-out infinite;
+}
+@keyframes blob {
+  0%,
+  100% {
+    border-radius: 58% 42% 55% 45% / 50% 55% 45% 50%;
+  }
+  33% {
+    border-radius: 45% 55% 42% 58% / 55% 45% 55% 45%;
+  }
+  66% {
+    border-radius: 52% 48% 60% 40% / 45% 52% 48% 55%;
+  }
+}
+.wiggle:hover {
+  animation: wiggle 0.6s ease-in-out;
+}
+@keyframes wiggle {
+  25% {
+    transform: rotate(-12deg);
+  }
+  75% {
+    transform: rotate(12deg);
+  }
+}
+.bouncy {
+  transition:
+    transform 0.45s cubic-bezier(0.3, 1.6, 0.5, 1),
+    box-shadow 0.3s;
+}
+.bouncy:hover {
+  transform: translateY(-8px) rotate(-0.6deg);
+}
+
+/* Acorns for spots left pop in one by one */
+.acorn-dot {
+  opacity: 0;
+  transform: scale(0.3) rotate(-30deg);
+}
+.is-in .acorn-dot,
+.acorns-now .acorn-dot {
+  animation: acorn-pop 0.5s cubic-bezier(0.3, 1.7, 0.5, 1) both;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+@keyframes acorn-pop {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.sun-glow {
+  animation: sun-glow 3s ease-in-out infinite;
+}
+@keyframes sun-glow {
+  50% {
+    filter: drop-shadow(0 0 14px rgba(255, 211, 107, 0.9));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .pop-in,
+  .fade-up,
+  .step-in,
+  .drift,
+  .bob,
+  .twinkle,
+  .blob,
+  .sun-glow,
+  .is-in .acorn-dot,
+  .acorns-now .acorn-dot {
+    animation: none !important;
+  }
+  .acorn-dot {
+    opacity: 1;
+    transform: none;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .bouncy {
+    transition: none;
+  }
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

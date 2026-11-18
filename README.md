@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Little Acorn Learning Center
 
-## Getting Started
+A demo website for a fictional child care centre, built by [MyClickAid](https://myclickaid.com) for its portfolio gallery.
 
-First, run the development server:
+**Live demo:** https://little-acorn-demo.derin-obasa.workers.dev/
+
+> **A fictional centre.** Little Acorn Learning Center, its staff, rooms, capacity, parent quotes and prices are made up for this demo. No waitlist form sends any data.
+
+## What it shows
+
+- **Home page:** a playful animated hero with a drifting sky and a blob-shaped photo, a live count of open spots, trust badges, room cards, a "day at Little Acorn" slider, animated numbers, facilities and parent testimonials.
+- **Age finder:** enter a child's date of birth and see which room fits, with a friendly note for children between rooms.
+- **A day at Little Acorn:** drag a slider, or tap a time, to follow a typical day from the first hello to goodnight.
+- **Programs:** four age-specific rooms (infant, toddler, preschool, Pre-K) with ratios, age ranges and what children learn.
+- **Waitlist:** a form with room availability and a demo reference code. Full rooms show a demo place in line.
+- **Facilities and About:** the outdoor yard, reading corner, art studio, nap room, secure entry and kitchen, plus the staff, milestones and values.
+- **Details:** floating and bouncing animations, wave dividers, reduced-motion support and keyboard-friendly menus.
+
+## Built with
+
+- [Next.js](https://nextjs.org/) (App Router, JavaScript, static export)
+- [Tailwind CSS](https://tailwindcss.com/) v4
+- Fonts: Fredoka and Nunito Sans, self-hosted with `@fontsource`
+- Hosted on Cloudflare
+
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+To create the production build (a static site in the `out` folder):
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+```
 
-## Learn More
+## Project structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+app/
+  _components/   Header, Footer, Sky, Waves, DayDial, AgeFinder, RoomCards, WaitlistForm, ...
+  _lib/          data.js, utils.js, pictures.js
+  _styles/       globals.css
+  programs/  facilities/  enroll/  about/
+public/          Photos (.webp)
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Photos
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Photos are optional. Every slot works as a coloured placeholder until you add an image. Put the files in `public/` and register them in `app/_lib/pictures.js`.
 
-## Deploy on Vercel
+| Slot              | File                                                                 | Size                       |
+| ----------------- | -------------------------------------------------------------------- | -------------------------- |
+| Hero (blob shape) | `la-hero.webp`                                                       | 1400 × 1750, portrait 4:5  |
+| Rooms             | `la-room-infant.webp`, `-toddler`, `-preschool`, `-prek`             | 1200 × 1200, square        |
+| Facilities        | `la-fac-yard.webp`, `-reading`, `-art`, `-nap`, `-entry`, `-kitchen` | 1600 × 1200, landscape 4:3 |
+| Staff             | `la-staff-marisol.webp`, `-theo`, `-amara`                           | 1200 × 1200, square        |
+| About banner      | `la-about.webp`                                                      | 1600 × 1000, landscape     |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deployment
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The site is a static export (`output: "export"` in `next.config.mjs`) and deploys to Cloudflare from this repository. Every push to the main branch rebuilds and redeploys it.
+
+## About MyClickAid
+
+MyClickAid is a bespoke web design studio. This site is one of several demo projects that show what a custom-designed website can look like for different kinds of businesses.
